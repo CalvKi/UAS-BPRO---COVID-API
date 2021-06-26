@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
+    crossorigin="anonymous">
+
+    <title>UJI COBA</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="CovidStyle.css" />
+ 
+<div class="container">
+  <h2>Covid - 19 General Data</h2>
+  <div class="wrapper">
+    <div class="search-input">
+      <input type="text" placeholder="Type to search.." id="location">
+      <div class="autocom-box">
+          
+      </div>
+    </div>
+  </div>
+
+  <script src="CovidSuggestions.JS"></script>
+  <script src="CovidScript.JS"></script>
+  
+  <h6>Note: Gunakan Huruf Kapital di Setiap Awal Kata!</h6>
+  
+  <button class="global" id="glo">
+    <span>General</span>
+  </button>
+  <button class="vaccine" id="vac">
+    <span>Vaccine</span>
+  </button>
+
+  <p class="card-text" id="data"></p>
+
+  <script>
+    var Button = document.getElementById("glo");
+    Button.addEventListener('click', cekcovid);
+    function cekcovid(){
+    fetch('https://covid-api.mmediagroup.fr/v1/cases?country='+ 
+    document.getElementById("location").value)
+    .then(Response => Response.json()).then(
+          data => {
+              document.getElementById("data").innerHTML = 
+              `<ul class="list-group"> 
+                <p align= "center" class="name_country">${data.All.country}</p>
+                <li class="list-group-item">${'Case : '+ data.All.confirmed}</li> 
+                <li class="list-group-item">${'Death : '+ data.All.deaths}</li>
+                <li class="list-group-item">${'Recovered : '+ data.All.recovered}</li>
+                <li class="list-group-item">${'Population : '+ data.All.population}</li>
+                <li class="list-group-item">${'Capital City : '+ data.All.capital_city}</li>
+                <li class="list-group-item">${'Continent : '+ data.All.continent}</li>
+                <li class="list-group-item">${'Abbreviation : '+ data.All.abbreviation}</li>
+                <li class="list-group-item">${'Last Update : '+ data.All.updated}</li>
+                </ul>`;
+          }
+      )
+  }
+</script>
+<script>
+  var Button = document.getElementById("vac");
+  Button.addEventListener('click', cekcovid);
+  function cekcovid(){
+  fetch('https://covid-api.mmediagroup.fr/v1/vaccines?country='+ 
+  document.getElementById("location").value)
+  .then(Response => Response.json()).then(
+        data => {
+            document.getElementById("data").innerHTML = 
+            `<ul class="list-group"> 
+              <p align= "center" class="name_country">${data.All.country}</p>
+              <li class="list-group-item">${'Administered : '+ data.All.administered}</li> 
+              <li class="list-group-item">${'Vaccinated : '+ data.All.people_vaccinated}</li>
+              <li class="list-group-item">${'Partially : '+ data.All.people_partially_vaccinated}</li>
+              <li class="list-group-item">${'Population : '+ data.All.population}</li>
+              <li class="list-group-item">${'Capital City : '+ data.All.capital_city}</li>
+              <li class="list-group-item">${'Continent : '+ data.All.continent}</li>
+              <li class="list-group-item">${'Abbreviation : '+ data.All.abbreviation}</li>
+              <li class="list-group-item">${'Last Update : '+ data.All.updated}</li>
+              </ul>`;
+        }
+    )
+}
+</script>
+</div> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+  </body>
+</html>
